@@ -1,17 +1,17 @@
 rust-cfi-examples
 =================
 
-The LLVM CFI support in the Rust compiler provides forward-edge control flow
-protection for both Rust-compiled code only and for C or C++ and Rust -compiled
+LLVM CFI support in the Rust compiler provides forward-edge control flow
+protection for both Rust-compiled code only and for C or C++ and Rust-compiled
 code mixed-language binaries, also known as “mixed binaries” (i.e., for when C
-or C++ and Rust -compiled code share the same virtual address space), by
+or C++ and Rust-compiled code share the same virtual address space) by
 aggregating function pointers in groups identified by their return and
 parameter types.
 
 LLVM CFI can be enabled with `-Zsanitizer=cfi` and requires LTO (i.e.,
 `-Clinker-plugin-lto` or `-Clto`). Cross-language LLVM CFI can be enabled with
-`-Zsanitizer=cfi`, and requires the `-Zsanitizer-cfi-normalize-integers` option
-to be used with Clang `-fsanitize-cfi-icall-experimental-normalize-integers`
+`-Zsanitizer=cfi`, requires the `-Zsanitizer-cfi-normalize-integers` option to
+be used with the Clang `-fsanitize-cfi-icall-experimental-normalize-integers`
 option for cross-language LLVM CFI support, and proper (i.e., non-rustc) LTO
 (i.e., `-Clinker-plugin-lto`).
 
@@ -322,11 +322,11 @@ With CFI enabled, you should not see the next answer
 Illegal instruction
 $
 ```
-Fig. 13. Build and execution of FIgs. 10–11 with LLVM CFI enabled.
+Fig. 13. Build and execution of Figs. 10–11 with LLVM CFI enabled.
 
 When LLVM CFI is enabled, if there are any attempts to redirect control flow
 using an indirect branch/call to a function with different return and parameter
 types than the return type expected and arguments intended/passed in the
 call/branch site, even across the FFI boundary and for `extern "C"` function
 types indirectly called (i.e., callbacks/function pointers) across the FFI
-boundary, the execution is also terminated (see Fig. 20).
+boundary, the execution is also terminated (see Fig. 13).
